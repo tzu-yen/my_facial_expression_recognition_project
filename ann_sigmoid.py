@@ -29,16 +29,14 @@ class ANN(object):
 
 			pY_Y = pY - Y
 			self.W2 -= learning_rate * (Z.T.dot(pY_Y) + reg * self.W2)
-			#self.b2 -= learning_rate * ((pY_Y).sum() + reg * self.b2)
-			self.b2 -= learning_rate * ((pY_Y).sum())
+			self.b2 -= learning_rate * ((pY_Y).sum() + reg * self.b2)
 
 			if self.activation_func == 'relu':
 				dZ = np.outer(pY_Y, self.W2) * (Z > 0) #derivative of relu
 			elif self.activation_func == 'tanh':
 				dZ = np.outer(pY_Y, self.W2) * (1 - Z*Z) # tanh
 			self.W1 -= learning_rate*(X.T.dot(dZ) + reg * self.W1)
-			#self.b1 -= learning_rate*(np.sum(dZ, axis=0) + reg*self.b1)
-			self.b1 -= learning_rate*(np.sum(dZ, axis=0))
+			self.b1 -= learning_rate*(np.sum(dZ, axis=0) + reg*self.b1)
 
 			if i % 20 == 0:
 				pYvalid, _ = self.forward(Xvalid)
