@@ -39,7 +39,7 @@ def error_rate(targets, predictions):
 	return np.mean(targets != predictions)
 
 def y2indicator(y):
-	N, K = len(y), len(set(K))
+	N, K = len(y), len(set(y))
 	indicator = np.zeros((N, K))
 	indicator[np.arange(N), y.astype(np.int32)] = 1
 	return indicator
